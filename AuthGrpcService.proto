@@ -10,6 +10,18 @@ enum AuthError{
     InvalidPassword = 3;
 }
 
+message AuthGrpcRequest{
+    string Login = 1;
+    string Password = 2;
+}
+
+message AuthGrpcResponse{
+    oneof auth_grpc_result {
+        string Token = 1;
+        AuthError Error = 2;
+    }
+}
+
 message RegisterGrpcRequest{
     string Login = 1;
     string Password = 2;
@@ -29,6 +41,7 @@ message UpdatePasswordGrpcResponse{
 }
 
 service AuthGrpcService {
+    rpc Auth(AuthGrpcRequest) returns (AuthGrpcResponse);
     rpc Register(RegisterGrpcRequest) returns (RegisterGrpcResponse);
     rpc UpdatePassword(UpdatePasswordGrpcRequest) returns (UpdatePasswordGrpcResponse);
     rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
