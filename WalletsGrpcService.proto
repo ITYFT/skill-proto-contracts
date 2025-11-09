@@ -1,0 +1,31 @@
+
+syntax = "proto3";
+package wallets_grpc;
+import "google/protobuf/empty.proto";
+
+message WalletGrpcModel{
+    string WalletId = 1;
+    string ClientId = 2;
+    double Balance = 3;
+}
+
+message GetWalletGrpcRequest{
+    string WalletId = 1;
+}
+
+message GetWalletsGrpcRequest{
+    string ClientId = 1;
+}
+
+message UpdateWalletBalanceGrpcRequest{
+    string WalletId = 1;
+    double Delta = 2;
+}
+
+service AuthGrpcService {
+    rpc GetWallet(GetWalletGrpcRequest) returns (WalletGrpcModel);
+    rpc GetClientWallets(GetWalletsGrpcRequest) returns (stream WalletGrpcModel);
+    rpc UpdateWalletBalance(UpdateWalletBalanceGrpcRequest) returns (WalletGrpcModel);
+    rpc GetAllWallets(google.protobuf.Empty) returns (stream WalletGrpcModel);
+    rpc Ping(google.protobuf.Empty) returns (google.protobuf.Empty);
+}
