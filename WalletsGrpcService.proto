@@ -22,7 +22,7 @@ message UpdateWalletBalanceGrpcRequest{
     double Delta = 2;
 }
 
-service AuthGrpcService {
+service WalletsGrpcService {
     rpc GetWallet(GetWalletGrpcRequest) returns (WalletGrpcModel);
     rpc GetClientWallets(GetWalletsGrpcRequest) returns (stream WalletGrpcModel);
     rpc UpdateWalletBalance(UpdateWalletBalanceGrpcRequest) returns (WalletGrpcModel);
